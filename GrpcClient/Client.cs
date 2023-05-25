@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Grpc.Core.Interceptors;
 using Grpc.Net.Client;
 using GrpcClient;
+using GrpcService;
 using Newtonsoft.Json;
 
 namespace GrpcClient
@@ -14,7 +16,10 @@ namespace GrpcClient
             try
             {
                 var channel = GrpcChannel.ForAddress("http://localhost:5181");
-                var client = new Greeter.GreeterClient(channel);
+                //добавляем компонент в конвейер
+                var interceptor = channel.Intercept(new LoggingInterceptor());
+                //вызываем на выполнение уже этот компонент
+                var client = new Greeter.GreeterClient(interceptor);
                 dynamic? reply = null;                
                 switch (typeof(T2))
                 {
