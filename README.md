@@ -1,1 +1,5 @@
-# GrpcService
+Проект GrpcService - это сервер, на порту 5181
+Запускаем сначала сервер из каталога GrpcService\GrpcServer:
+dotnet run
+Должен стартовать сервис
+Потом по F5 запускаем проект GrpcClient - это клиент к нему
